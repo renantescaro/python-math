@@ -22,7 +22,6 @@ class Entradas:
             entrada = entrada.replace('–', '-')
             entrada = entrada.upper()
 
-
             if entrada.startswith('X') or entrada[0].isdigit():
                 entrada = f'+{entrada}'
 
