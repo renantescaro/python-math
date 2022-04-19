@@ -19,9 +19,12 @@ class Entradas:
         try:
             entrada = ''.join(self.entrada.split())
             entrada = entrada.replace('^2', '²')
+            entrada = entrada.replace('–', '-')
             entrada = entrada.upper()
 
-            entrada = f'+{entrada}' if entrada.startswith('X') else entrada
+
+            if entrada.startswith('X') or entrada[0].isdigit():
+                entrada = f'+{entrada}'
 
             lista = re.findall('[+-][0-9]?.X?²?', entrada)
 
