@@ -4,7 +4,10 @@ from typing import Tuple
 
 class Entradas:
     def __init__(self, entrada:str) -> None:
-        self.entrada:str = entrada
+        self.equacao:str = entrada
+        self.a: int = 0
+        self.b: int = 0
+        self.c: int = 0
 
 
     def _pegar_coeficiente(self, texto:str) -> int:
@@ -15,23 +18,27 @@ class Entradas:
         return int(texto)
 
 
+    def _preparar_entrada(self, entrada:str) -> str:
+        entrada = ''.join(entrada.split())
+        entrada = entrada.replace('^2', '²')
+        entrada = entrada.replace('–', '-')
+        entrada = entrada.upper()
+
+        if entrada.startswith('X') or entrada[0].isdigit():
+            entrada = f'+{entrada}'
+        return entrada
+
+
     def executar(self) -> Tuple[int, int, int]:
         try:
-            entrada = ''.join(self.entrada.split())
-            entrada = entrada.replace('^2', '²')
-            entrada = entrada.replace('–', '-')
-            entrada = entrada.upper()
+            self.equacao = self._preparar_entrada(self.equacao)
 
-            if entrada.startswith('X') or entrada[0].isdigit():
-                entrada = f'+{entrada}'
+            lista = re.findall('[+-][0-9]?.X?²?', self.equacao)
+            self.a = self._pegar_coeficiente(lista[0])
+            self.b = self._pegar_coeficiente(lista[1])
+            self.c = self._pegar_coeficiente(lista[2])
 
-            lista = re.findall('[+-][0-9]?.X?²?', entrada)
-
-            a = self._pegar_coeficiente(lista[0])
-            b = self._pegar_coeficiente(lista[1])
-            c = self._pegar_coeficiente(lista[2])
-
-            return a, b, c
+            return self.a, self.b, self.c
 
         except Exception as e:
             print(e)
