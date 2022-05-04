@@ -1,24 +1,22 @@
 import re
-from typing import Tuple
+from typing import Optional, Tuple
 
 
 class Entradas:
-    def __init__(self, entrada:str) -> None:
-        self.equacao:str = entrada
+    def __init__(self, entrada: str) -> None:
+        self.equacao: str = entrada
         self.a: int = 0
         self.b: int = 0
         self.c: int = 0
 
-
-    def _pegar_coeficiente(self, texto:str) -> int:
+    def _pegar_coeficiente(self, texto: str) -> int:
         texto = texto.replace('²', '')
         texto = texto.replace('X', '')
         texto = '-1' if texto in {'-', '-1'} else texto
         texto = '1' if texto in {'', '+', '+1'} else texto
         return int(texto)
 
-
-    def _preparar_entrada(self, entrada:str) -> str:
+    def _preparar_entrada(self, entrada: str) -> str:
         entrada = ''.join(entrada.split())
         entrada = entrada.replace('^2', '²')
         entrada = entrada.replace('–', '-')
@@ -28,8 +26,7 @@ class Entradas:
             entrada = f'+{entrada}'
         return entrada
 
-
-    def executar(self) -> Tuple[int, int, int]:
+    def executar(self) -> Optional[Tuple[int, int, int]]:
         try:
             self.equacao = self._preparar_entrada(self.equacao)
 
