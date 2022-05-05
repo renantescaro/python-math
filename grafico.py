@@ -1,14 +1,13 @@
 from typing import List, Tuple
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 
 class Grafico:
-    def __init__(self, a:int, b:int, c:int, equacao:str) -> None:
-        self.a :int = a
-        self.b :int = b
-        self.c :int = c
+    def __init__(self, a: int, b: int, c: int, equacao: str) -> None:
+        self.a: int = a
+        self.b: int = b
+        self.c: int = c
         self.equacao: str = equacao
-
 
     def _gerar_valores(self) -> Tuple[List[float], List[float]]:
         valores_x = []
@@ -27,7 +26,6 @@ class Grafico:
             valores_y.append(eval(equacao))
 
         return valores_x, valores_y
-
 
     def executar(self):
         valores_x, valores_y = self._gerar_valores()
